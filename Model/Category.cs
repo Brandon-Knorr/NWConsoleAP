@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NWConsoleAP.Model;
+namespace NorthwindConsole.Model;
 
 public partial class Category
 {

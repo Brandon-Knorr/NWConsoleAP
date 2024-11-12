@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace NWConsoleAP.Model;
+namespace NorthwindConsole.Model;
 
 public partial class DataContext : DbContext
 {
