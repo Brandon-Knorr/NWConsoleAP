@@ -67,7 +67,10 @@ do
       else
       {
         logger.Info("Validation passed");
-        // TODO: save category to db
+        // save new category to db
+        db.Categories.Add(category);
+        db.SaveChanges();
+        logger.Info($"Category: {category.CategoryName} added succsessfully");
       }
     }
     if (!isValid)
