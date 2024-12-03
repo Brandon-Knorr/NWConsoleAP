@@ -17,6 +17,7 @@ do
   Console.WriteLine("2) Add category");
   Console.WriteLine("3) Display Category and related products");
   Console.WriteLine("4) Display all Categories and their related products");
+  Console.WriteLine("5) Display Products");
   Console.WriteLine("Enter to quit");
   string? choice = Console.ReadLine();
   Console.Clear();
@@ -115,6 +116,10 @@ do
         Console.WriteLine($"\t{p.ProductName}");
       }
     }
+  }
+  else if (choice == "5") 
+  {
+    // Display all products in DB table
   }
   else if (String.IsNullOrEmpty(choice))
   {
