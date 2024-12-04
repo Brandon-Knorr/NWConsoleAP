@@ -1,5 +1,4 @@
 ﻿using NLog;
-using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using NorthwindConsole.Model;
@@ -17,7 +16,7 @@ do
   Console.WriteLine("2) Add category");
   Console.WriteLine("3) Display Category and related products");
   Console.WriteLine("4) Display all Categories and their related products");
-  Console.WriteLine("5) Display Products");
+  Console.WriteLine("5) Display all Products");
   Console.WriteLine("Enter to quit");
   string? choice = Console.ReadLine();
   Console.Clear();
@@ -120,6 +119,16 @@ do
   else if (choice == "5") 
   {
     // Display all products in DB table
+    var db = new DataContext();
+    var query = db.Products.OrderBy(p => p.ProductName);
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine($"{query.Count()} records returned");
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    foreach (var item in query)
+    {
+      Console.WriteLine($"{item.ProductName} - {item.UnitPrice}");
+    }
+    Console.ForegroundColor = ConsoleColor.White;
   }
   else if (String.IsNullOrEmpty(choice))
   {
