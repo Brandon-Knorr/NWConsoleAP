@@ -71,7 +71,7 @@ do
         // save new category to db
         db.Categories.Add(category);
         db.SaveChanges();
-        logger.Info($"Category: {category.CategoryName} added succsessfully");
+        logger.Info($"Category: {category.CategoryName} added successfully");
       }
     }
     if (!isValid)
@@ -135,6 +135,15 @@ do
   {
     // Display all active products in the DB table
     var db = new DataContext();
+    var query = db.Products.Where(p => p.Discontinued == false).OrderBy(p => p.ProductName);
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine($"{query.Count()} records returned");
+    Console.ForegroundColor = ConsoleColor.Blue;
+    foreach (var item in query)
+    {
+      Console.WriteLine($"{item.ProductName}");
+    }
+    Console.ForegroundColor = ConsoleColor.White;
   }
   else if (String.IsNullOrEmpty(choice))
   {
