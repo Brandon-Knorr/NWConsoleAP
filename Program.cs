@@ -16,8 +16,10 @@ do
   Console.WriteLine("2) Add category");
   Console.WriteLine("3) Display Category and related products");
   Console.WriteLine("4) Display all Categories and their related products");
-  Console.WriteLine("5) Display all Products");
-  Console.WriteLine("6) Display all Active Products");
+  Console.WriteLine("\t");
+  Console.WriteLine("5) Display Products");
+  Console.WriteLine("6) Display all Active Products (in blue)");
+  Console.WriteLine("7) Display all Discontinued Products (in red)");
   Console.WriteLine("Enter to quit");
   string? choice = Console.ReadLine();
   Console.Clear();
@@ -138,12 +140,16 @@ do
     var query = db.Products.Where(p => p.Discontinued == false).OrderBy(p => p.ProductName);
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine($"{query.Count()} records returned");
-    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
     foreach (var item in query)
     {
       Console.WriteLine($"{item.ProductName}");
     }
     Console.ForegroundColor = ConsoleColor.White;
+  }
+  else if (choice == "7")
+  {
+    // Display all the discontinued products in the DB table in Red
   }
   else if (String.IsNullOrEmpty(choice))
   {
