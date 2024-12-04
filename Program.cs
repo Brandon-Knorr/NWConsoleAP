@@ -17,6 +17,7 @@ do
   Console.WriteLine("3) Display Category and related products");
   Console.WriteLine("4) Display all Categories and their related products");
   Console.WriteLine("5) Display all Products");
+  Console.WriteLine("6) Display all Active Products");
   Console.WriteLine("Enter to quit");
   string? choice = Console.ReadLine();
   Console.Clear();
@@ -126,9 +127,14 @@ do
     Console.ForegroundColor = ConsoleColor.Magenta;
     foreach (var item in query)
     {
-      Console.WriteLine($"{item.ProductName} - {item.UnitPrice}");
+      Console.WriteLine($"{item.ProductName}");
     }
     Console.ForegroundColor = ConsoleColor.White;
+  }
+  else if (choice == "6") 
+  {
+    // Display all active products in the DB table
+    var db = new DataContext();
   }
   else if (String.IsNullOrEmpty(choice))
   {
