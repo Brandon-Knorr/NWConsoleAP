@@ -181,6 +181,47 @@ do
     Product product = db.Products.FirstOrDefault(p => p.ProductId == id)!;
     Console.WriteLine($"{product.ProductName} - Unit Prince: {product.UnitPrice}\nQuantity Per Unit: {product.QuantityPerUnit}\n Units in Stock: {product.UnitsInStock}\nUnits on Order: {product.UnitsOnOrder}\nReorder Level: {product.ReorderLevel}");
   }
+  else if (choice == "9")
+  {
+    // Edit a product
+    var db = new DataContext();
+    var query = db.Products.OrderBy(p => p.ProductName);
+    Console.WriteLine("Select the product you want to edit:");
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    foreach (var item in query)
+    {
+      Console.WriteLine($"{item.ProductId}) {item.ProductName}");
+    }
+    Console.ForegroundColor = ConsoleColor.White;
+    int id = int.Parse(Console.ReadLine()!);
+    Console.Clear();
+    logger.Info($"ProductId {id} selected");
+    Product product = db.Products.FirstOrDefault(p => p.ProductId == id)!;
+    Console.WriteLine("Enter Product Name:");
+    product.ProductName = Console.ReadLine()!;
+    Console.WriteLine("Enter the Quantity Per Unit:");
+    product.QuantityPerUnit = Console.ReadLine();
+    Console.WriteLine("Enter the Unit Price:");
+    product.UnitPrice = decimal.Parse(Console.ReadLine()!);
+    Console.WriteLine("Enter the Units in Stock:");
+    product.UnitsInStock = short.Parse(Console.ReadLine()!);
+    Console.WriteLine("Enter the Units on Order:");
+    product.UnitsOnOrder = short.Parse(Console.ReadLine()!);
+    Console.WriteLine("Enter the Reorder Level:");
+    product.ReorderLevel = short.Parse(Console.ReadLine()!);
+    Console.WriteLine("Is the product discontinued? (y/n)");
+    string? input = Console.ReadLine();
+    if (input == "y")
+    {
+      product.Discontinued = true;
+    }
+    else
+    {
+      product.Discontinued = false;
+    }
+    db.SaveChanges();
+    logger.Info($"Product: {product.ProductName} updated successfully");
+  }
   else if (String.IsNullOrEmpty(choice))
   {
     break;
