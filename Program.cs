@@ -20,6 +20,7 @@ do
   Console.WriteLine("5) Display Products");
   Console.WriteLine("6) Display all Active Products (in blue)");
   Console.WriteLine("7) Display all Discontinued Products (in red)");
+  Console.WriteLine("8) Display a specific Product");
   Console.WriteLine("Enter to quit");
   string? choice = Console.ReadLine();
   Console.Clear();
@@ -160,6 +161,24 @@ do
       Console.WriteLine($"{item.ProductName}");
     }
     Console.ForegroundColor = ConsoleColor.White;
+  }
+  else if (choice == "8")
+  {
+    // Display a specific product
+    var db = new DataContext();
+    var query = db.Products.OrderBy(p => p.ProductName);
+    Console.WriteLine("Select the product you want to display:");
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    foreach (var item in query)
+    {
+      Console.WriteLine($"{item.ProductId}) {item.ProductName}");
+    }
+    Console.ForegroundColor = ConsoleColor.White;
+    int id = int.Parse(Console.ReadLine()!);
+    Console.Clear();
+    logger.Info($"ProductId {id} selected");
+    Product product = db.Products.FirstOrDefault(p => p.ProductId == id)!;
+    Console.WriteLine($"{product.ProductName} - Unit Prince: {product.UnitPrice}\nQuantity Per Unit: {product.QuantityPerUnit}\n Units in Stock: {product.UnitsInStock}\nUnits on Order: {product.UnitsOnOrder}\nReorder Level: {product.ReorderLevel}");
   }
   else if (String.IsNullOrEmpty(choice))
   {
