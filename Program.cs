@@ -22,6 +22,7 @@ do
   Console.WriteLine("7) Display all Discontinued Products (in red)");
   Console.WriteLine("8) Display a specific Product");
   Console.WriteLine("9) Edit a Product");
+  Console.WriteLine("10) Add a Product");
   Console.WriteLine("Enter to quit");
   string? choice = Console.ReadLine();
   Console.Clear();
@@ -221,6 +222,37 @@ do
     }
     db.SaveChanges();
     logger.Info($"Product: {product.ProductName} updated successfully");
+  }
+  else if (choice == "10")
+  {
+    // Add a product
+    Product product = new();
+    Console.WriteLine("Enter Product Name:");
+    product.ProductName = Console.ReadLine()!;
+    Console.WriteLine("Enter the Quantity Per Unit:");
+    product.QuantityPerUnit = Console.ReadLine();
+    Console.WriteLine("Enter the Unit Price:");
+    product.UnitPrice = decimal.Parse(Console.ReadLine()!);
+    Console.WriteLine("Enter the Units in Stock:");
+    product.UnitsInStock = short.Parse(Console.ReadLine()!);
+    Console.WriteLine("Enter the Units on Order:");
+    product.UnitsOnOrder = short.Parse(Console.ReadLine()!);
+    Console.WriteLine("Enter the Reorder Level:");
+    product.ReorderLevel = short.Parse(Console.ReadLine()!);
+    Console.WriteLine("Is the product discontinued? (y/n)");
+    string? input = Console.ReadLine();
+    if (input == "y")
+    {
+      product.Discontinued = true;
+    }
+    else
+    {
+      product.Discontinued = false;
+    }
+    var db = new DataContext();
+    db.Products.Add(product);
+    db.SaveChanges();
+    logger.Info($"Product: {product.ProductName} added successfully");
   }
   else if (String.IsNullOrEmpty(choice))
   {
